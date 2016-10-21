@@ -37,9 +37,9 @@ public class ItemBeastmasterArmor extends ModeledArmor{
 		switch (armorSlot) {
 		case CHEST:
 		case FEET:
+		case HEAD:
 			setArmorModel(AddonBeastMaster.proxy.getArmorModel(ClientProxy.BM_CHEST));
 			break;
-		case HEAD:
 		case LEGS:
 			setArmorModel(AddonBeastMaster.proxy.getArmorModel(ClientProxy.BM_REST));
 			break;

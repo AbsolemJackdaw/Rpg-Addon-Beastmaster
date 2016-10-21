@@ -1,6 +1,7 @@
 package subaraki.beastmaster.item;
 
-import static lib.item.ItemRegistry.*;
+import static lib.item.ItemRegistry.registerItem;
+import static lib.item.ItemRegistry.registerRender;
 
 import lib.item.shield.ItemCustomShield;
 import net.minecraft.creativetab.CreativeTabs;
@@ -10,6 +11,9 @@ import net.minecraft.item.ItemStack;
 import subaraki.beastmaster.item.armor.ItemBeastmasterArmor;
 import subaraki.beastmaster.item.weapon.ItemClaws;
 import subaraki.beastmaster.mod.AddonBeastMaster;
+import subaraki.rpginventory.enums.JewelTypes;
+import subaraki.rpginventory.item.RpgInventoryItem;
+import subaraki.rpginventory.item.RpgItems.LocalizeEnum;
 
 public class BeastMasterItems {
 
@@ -19,8 +23,9 @@ public class BeastMasterItems {
 	public static Item beastmasterplate;
 	public static ItemCustomShield beastmastershield;
 	
-	public static Item fur, claw;
+	public static ItemCrystal crystal;
 	
+	public static Item fur, claw, whistle;
 	
 	final static String modid = AddonBeastMaster.MODID;
 	
@@ -51,6 +56,10 @@ public class BeastMasterItems {
 		claw = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".animalclaw").setRegistryName(modid+".animalclaw");
 		fur = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".roughfur").setRegistryName(modid+".roughfur");
 		
+		crystal = (ItemCrystal) new ItemCrystal(JewelTypes.CRYSTAL, modid+".crystal").setCreativeTab(tab);
+	
+		whistle = (ItemWhistle) new ItemWhistle().setCreativeTab(tab).setUnlocalizedName(modid+".whistle").setRegistryName(modid+".whistle");
+		
 		register();
 	}
 	
@@ -62,6 +71,8 @@ public class BeastMasterItems {
 		registerItem(claws);
 		registerItem(fur);
 		registerItem(claw);
+		registerItem(crystal);
+		registerItem(whistle);
 	}
 	
 	public static void registerRenders(){
@@ -72,5 +83,8 @@ public class BeastMasterItems {
 		registerRender(claws, "weapon/claw", modid);
 		registerRender(fur, "fur", modid);
 		registerRender(claw, "claw", modid);
+		for(int i=0;i<5;i++)
+		registerRender(crystal, "crystal", modid, i);
+		registerRender(whistle, "whistle", modid);
 	}
 }
