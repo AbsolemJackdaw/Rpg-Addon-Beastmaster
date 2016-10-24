@@ -56,16 +56,14 @@ public class EventBeastmasterAttraction {
 
 				BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
 
-				if(beastmaster.isPetting() && !player.worldObj.isRemote){
-					beastmaster.setPetting(false);
-					NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(false), (EntityPlayerMP) player);
-					//set false before checking anything. if it is set to true after, this will have no consequence
-				}
+				//TODO re-implement when mode angles are changeable
+				//				if(beastmaster.isPetting() && !player.worldObj.isRemote){
+				//					beastmaster.setPetting(false);
+				//					NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(false), (EntityPlayerMP) player);
+				//					//set false before checking anything. if it is set to true after, this will have no consequence
+				//				}
 
 				if(!player.isSneaking()){
-					return;
-				}
-				if(!PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){
 					return;
 				}
 
@@ -94,32 +92,45 @@ public class EventBeastmasterAttraction {
 								if(distance - (double)ec.width/2d <= 2d){
 
 									if(ec instanceof EntityAnimal){
-										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
-											beastmaster.setPetting(true);
-											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
-											//set false before checking anything. if it is set to true after, this will have no consequence
-										}
-										if(ec.worldObj.rand.nextInt(25) == 0 && !ec.isChild()){
-											if(!ec.worldObj.isRemote){
-												EntityItem ei = new EntityItem(ec.worldObj, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.worldObj.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
-												//this should trigger panic ai
-												ec.setRevengeTarget(player);
-												//its better to attack them to prevent infinite harvest
-												ec.attackEntityFrom(DamageSource.causePlayerDamage(player), 2);
-												ec.worldObj.spawnEntityInWorld(ei);
-												player.worldObj.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
+										//TODO re-implement when mode angles are changeable
+										//										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
+										//											beastmaster.setPetting(true);
+										//											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
+										//											//set false before checking anything. if it is set to true after, this will have no consequence
+										//										}
+
+										int chance = 27 - (beastmaster.getAnimalAffinity()/10); //results in 27 - max255/10 = 2
+										if(!ec.isChild()){
+											if(ec.worldObj.rand.nextInt() == 0){
+												if(!ec.worldObj.isRemote){
+													EntityItem ei = new EntityItem(ec.worldObj, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.worldObj.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
+													//this should trigger panic ai
+													ec.setRevengeTarget(player);
+													//its better to attack them to prevent infinite harvest
+													ec.attackEntityFrom(DamageSource.causePlayerDamage(player), 2);
+													ec.worldObj.spawnEntityInWorld(ei);
+													player.worldObj.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
+												}
+
+												if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+													beastmaster.addAnimalAffinity(3);
+												else
+													beastmaster.addAnimalAffinity(1);
 											}
 										}
-										else 
+										else if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
 											transformChildToCrystal((EntityAnimal)ec, player);
 
 									}else if(ec instanceof EntitySpider){
-										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
-											beastmaster.setPetting(true);
-											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
-											//set false before checking anything. if it is set to true after, this will have no consequence
-										}
-										transformAdultToCrystal(ec, player);
+										//TODO re-implement when mode angles are changeable
+										//										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
+										//											beastmaster.setPetting(true);
+										//											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
+										//											//set false before checking anything. if it is set to true after, this will have no consequence
+										//										}
+
+										if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+											transformAdultToCrystal(ec, player);
 									}
 								}
 							}
@@ -131,11 +142,12 @@ public class EventBeastmasterAttraction {
 	}
 
 	private void transformAdultToCrystal(EntityCreature ec, EntityPlayer player){
+
 		int chance = ec.worldObj.rand.nextInt(2);
-		if(!ec.worldObj.isRemote)
-			System.out.println(chance);
 		if(chance == 0 && !ec.worldObj.isRemote){
-			if(ec.worldObj.rand.nextInt(3)==0){
+			BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
+			int chance2 = beastmaster.getAnimalAffinity() > 100 ? 2 : 4;
+			if(ec.worldObj.rand.nextInt(chance2)==0 || beastmaster.getAnimalAffinity() > 200){
 				ec.setDead();
 				int damage = BeastMasterPet.instance.getDamageFromEntity(ec);
 				EntityItem ei = new EntityItem(ec.worldObj, ec.posX, ec.posY, ec.posZ, new ItemStack(BeastMasterItems.crystal,1,damage));
@@ -165,7 +177,9 @@ public class EventBeastmasterAttraction {
 				}
 			}
 			if(parent == null){
-				if(ea.worldObj.rand.nextInt(3)==0){
+				BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
+				int chance2 = beastmaster.getAnimalAffinity() > 100 ? 2 : 4;
+				if(ea.worldObj.rand.nextInt(chance2) == 0 || beastmaster.getAnimalAffinity() > 200){
 					ea.setDead();
 					int damage = BeastMasterPet.instance.getDamageFromEntity(ea);
 					EntityItem ei = new EntityItem(ea.worldObj, ea.posX, ea.posY, ea.posZ, new ItemStack(BeastMasterItems.crystal,1,damage));
