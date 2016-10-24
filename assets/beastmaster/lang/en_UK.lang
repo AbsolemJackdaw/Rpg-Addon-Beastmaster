@@ -1,12 +1,20 @@
-cannot.find.remove=This Telepad block was removed.
-button.forget=Forget
-button.teleport=Teleport Anyway
-enter.to.confirm=Press Enter To Confirm
-name.your.telepad=Name Your Telepad 
-dragon.obstructs=The power of the Ender Dragon is jamming your Telepad !
-feet.color=Turquoise
-arrow.color=Fuchsia Pink
+item.beastmaster_head.name=Beastmaster Helmet
+item.beastmaster_chest.name=Beastmaster Chestplate
+item.beastmaster_legs.name=Beastmaster Leggings
+item.beastmaster_feet.name=Beastmaster Boots
 
-item.telepads.toggler.name=Toggler
-item.telepads.transmitter.name=Transmitter
-tile.telepads.telepad.name=Telepad
+item.beastmaster.claws.name=Feral Claw
+item.beastmaster.roughfur.name=Rough Fur
+item.beastmaster.animalclaw.name=Animal Claw
+item.beastmaster.whistle.name=Pet Whistle
+
+item.beastmaster.crystal_0.name=Empty Crystal
+item.beastmaster.crystal_1.name=Boar Pet
+item.beastmaster.crystal_2.name=Spider Pet
+item.beastmaster.crystal_3.name=Bull Pet
+item.beastmaster.crystal_4.name=Rooster Pet
+
+entity.beastmaster.rooster_pet.name=Rooster Pet
+entity.beastmaster.bull_pet.name=Bull Pet
+entity.beastmaster.spider_pet.name=Spider Pet
+entity.beastmaster.boar_pet.name=Boar Pet
