@@ -21,6 +21,9 @@ public class SummonStowPetLogic {
 
 		if(inv.getCrystal() != null){
 
+			if(beastmaster.getPetUuid() != null) // in case when riding or having the pet loaded when logging out
+				stowPet(player);
+
 			if(beastmaster.getPetUuid() == null){
 
 				EntityBeastmasterPet pet = BeastMasterPet.instance.getNewPet(world, inv.getCrystal(), player);
@@ -42,7 +45,7 @@ public class SummonStowPetLogic {
 
 		if(beastmaster.getPetUuid() != null){
 			EntityBeastmasterPet pet = null;
-			
+
 			for(Entity e : world.loadedEntityList){
 				if(e instanceof EntityBeastmasterPet && e.getUniqueID().equals(beastmaster.getPetUuid())){
 					pet = (EntityBeastmasterPet)e;
@@ -53,8 +56,9 @@ public class SummonStowPetLogic {
 			if(pet != null){
 				savePet(pet, player);
 				pet.setDead();
-				beastmaster.setPetid(null);
 			}
+			//set null anyway, for when stowing is called from loging in riding the pet
+			beastmaster.setPetid(null);
 		}
 	}
 
