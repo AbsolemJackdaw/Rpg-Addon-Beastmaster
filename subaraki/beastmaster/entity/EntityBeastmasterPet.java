@@ -73,10 +73,8 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 	public EntityBeastmasterPet(World worldIn) {
 		super(worldIn);
 
-		//this one sets only the base values. save data not init yet
-		setSize(getScaledWidth(), getScaledHeight());
-		this.width = getScaledWidth();
-		this.height = getScaledHeight();
+		//trigger size saving and setting
+		this.addExperienceLevel(0);
 	}
 
 	public EntityBeastmasterPet(World world, ItemStack crystal) {
@@ -95,6 +93,8 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 			this.width = getScaledWidth();
 			this.height = getScaledHeight();
 		}
+		//trigger size saving and setting
+		this.addExperienceLevel(0);
 	}
 
 	@Override
@@ -146,6 +146,15 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 		}
 		super.onDeath(cause);
 	}
+	
+	@Override
+	public void setDead() {
+		super.setDead();
+		
+		if(getOwner() instanceof EntityPlayer){
+			SummonStowPetLogic.stowPet((EntityPlayer) getOwner());
+		}
+	}
 
 	@Override
 	public void onLivingUpdate() {
@@ -154,21 +163,20 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 		regenerateHealthTimer--;
 
 		//when level has changed or entity has re-spawned
-		//if(this.width != getScaledWidth() && this.height != getScaledHeight()){
-addExperienceLevel(0);
+		if(this.width != getScaledWidth() && this.height != getScaledHeight()){
 			setSize(getScaledWidth(), getScaledHeight()); //entity bb ?
 			this.width = getScaledWidth(); //visible bounding box ?
 			this.height = getScaledHeight();
 
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(getHealthIncreaseForLeveling());
 			this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(getSpeedIncreaseForLeveling());
-		//}
+		}
 
 		if(regenerateHealthTimer <= 0){
 			heal(1);
 			regenerateHealthTimer = getRegenDelay();
 		}
-		
+
 		if(this.getOwner() == null){
 			this.setDead();
 		}
@@ -224,7 +232,7 @@ addExperienceLevel(0);
 		if(getOwner() instanceof EntityPlayer && ((EntityPlayer)getOwner()).equals(player)){
 			if(stack != null ){
 				if(stack.getItem().equals(Items.GOLDEN_CARROT)){
-					this.addExperience(1000);
+					this.addExperience(9 + rand.nextInt(4));
 					stack.stackSize--;
 					return true;
 				}
@@ -236,7 +244,7 @@ addExperienceLevel(0);
 					}
 					return true;
 				}
-				if(stack.getItem().equals(Items.SADDLE) && getLevel() >= 50){
+				if(!isSaddled() && stack.getItem().equals(Items.SADDLE) && getLevel() >= 50){
 					setSaddled();
 					stack.stackSize--;
 					return true;
@@ -304,7 +312,7 @@ addExperienceLevel(0);
 	public double getMountedYOffset() {
 		return this.height - 0.5d /*player height /2*/;
 	}
-	
+
 	@Override
 	public boolean canBeSteered() {
 		if(getLevel() >= 50)
@@ -394,7 +402,7 @@ addExperienceLevel(0);
 	public void addExperience(int amount){
 		if(getLevel() >= 200)
 			return;
-		
+
 		int totalExp = this.dataManager.get(TOTALEXP);
 		float currentExp = (float)this.dataManager.get(EXPERIENCE);
 
@@ -412,7 +420,7 @@ addExperienceLevel(0);
 
 		this.dataManager.set(EXPERIENCE, currentExp);
 		this.dataManager.set(TOTALEXP, totalExp);
-		
+
 		if(getOwner() instanceof EntityPlayer)
 			SummonStowPetLogic.savePet(this, (EntityPlayer) getOwner());
 
@@ -421,13 +429,13 @@ addExperienceLevel(0);
 	public void addExperienceLevel(int levels)
 	{
 		int level = getLevel()+levels > 200 ? 200 : getLevel()+levels;
-		
+
 		this.dataManager.set(LEVEL, level);
 
 		float scale = getPetSize();
 		float width = getBaseWidth() + scale;
 		float height = getBaseHeight() + scale;
-		
+
 		this.dataManager.set(WIDTH, width);
 		this.dataManager.set(HEIGHT, height);
 
@@ -462,7 +470,7 @@ addExperienceLevel(0);
 	public float getScaledHeight(){
 		return this.dataManager.get(HEIGHT);
 	}
-	
+
 	@Override
 	public boolean isChild() {
 		return getLevel() < 10;
