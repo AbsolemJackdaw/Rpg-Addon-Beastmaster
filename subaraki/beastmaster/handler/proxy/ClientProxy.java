@@ -90,7 +90,7 @@ public class ClientProxy extends ServerProxy {
 			
 		case PET_PIG_CHILD: 
 		case PET_PIG :  return pig;
-		case PET_PIG_BIG : return new ModelBoar();
+		case PET_PIG_BIG : return buff_pig;
 
 		case PET_COW_CHILD:
 		case PET_COW : return cow;
