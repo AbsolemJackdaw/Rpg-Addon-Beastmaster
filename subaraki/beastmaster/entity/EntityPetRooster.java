@@ -1,6 +1,7 @@
 package subaraki.beastmaster.entity;
 
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -25,12 +26,12 @@ public class EntityPetRooster extends EntityBeastmasterPet{
 
 	@Override
 	public float getBaseHeight() {
-		return 0.3F;
+		return -0.2F;
 	}
 
 	@Override
 	public float getBaseWidth() {
-		return 0.2F;
+		return -0.2F;
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class EntityPetRooster extends EntityBeastmasterPet{
 
 	@Override
 	public float getPetSize() {
-		return 0;
+		return getLevel() <= 200 ? 0.5f + ((getLevel() / 200.0F)*2F) : 2.5f;
 	}
 
 	@Override
@@ -80,6 +81,7 @@ public class EntityPetRooster extends EntityBeastmasterPet{
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
+		
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
 		this.destPos = (float)((double)this.destPos + (double)(this.onGround ? -1 : 4) * 0.3D);
@@ -98,6 +100,17 @@ public class EntityPetRooster extends EntityBeastmasterPet{
 		}
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
+		
+	}
+	
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+	//keep empty to ignore fall damage
+	}
+	
+	@Override
+	public double getMountedYOffset() {
+		return this.height - 0.2;
 	}
 
 }
