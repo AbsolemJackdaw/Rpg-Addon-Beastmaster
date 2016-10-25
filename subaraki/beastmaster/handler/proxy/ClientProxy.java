@@ -134,5 +134,15 @@ public class ClientProxy extends ServerProxy {
 				},
 				BeastMasterItems.crystal
 				);
+		
+		ic.registerItemColorHandler(
+				new IItemColor() {
+					@Override
+					public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+						return 0x8b5e4d;
+					}
+				},
+				BeastMasterItems.craftLeather
+				);
 	}
 }
