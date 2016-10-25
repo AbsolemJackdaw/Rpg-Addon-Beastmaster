@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
@@ -54,6 +55,25 @@ public class EventBeastmasterAttraction {
 			if(event.getEntityLiving().ticksExisted % 20 == 0){
 				EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 
+				if(!player.isSneaking()){
+					return;
+				}
+
+				boolean isHoldingFood = false;
+				EnumHand heldFood = EnumHand.MAIN_HAND;
+
+				if(!PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){//if regular player
+
+					if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem().equals(BeastMasterItems.lure) || 
+							player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure)){		
+						isHoldingFood = true;
+						heldFood =  player.getHeldItemOffhand()!= null && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure) ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+
+					}else{
+						return;//if the player isn't holding lure, return
+					}
+				}
+
 				BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
 
 				//TODO re-implement when mode angles are changeable
@@ -62,10 +82,6 @@ public class EventBeastmasterAttraction {
 				//					NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(false), (EntityPlayerMP) player);
 				//					//set false before checking anything. if it is set to true after, this will have no consequence
 				//				}
-
-				if(!player.isSneaking()){
-					return;
-				}
 
 				RayTraceResult mouseOver = Targetting.rayTraceServerSide(player, 1);
 				if(mouseOver != null){
@@ -99,39 +115,46 @@ public class EventBeastmasterAttraction {
 										//											//set false before checking anything. if it is set to true after, this will have no consequence
 										//										}
 
-										int chance = 27 - (beastmaster.getAnimalAffinity()/10); //results in 27 - max255/10 = 2
-										if(!ec.isChild()){
-											if(ec.worldObj.rand.nextInt() == 0){
-												if(!ec.worldObj.isRemote){
-													EntityItem ei = new EntityItem(ec.worldObj, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.worldObj.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
-													//this should trigger panic ai
-													ec.setRevengeTarget(player);
-													//its better to attack them to prevent infinite harvest
-													ec.attackEntityFrom(DamageSource.causePlayerDamage(player), 2);
-													ec.worldObj.spawnEntityInWorld(ei);
-													player.worldObj.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
-												}
+										if(isHoldingFood)
+											if(player.worldObj.rand.nextInt(14)== 0 && !player.worldObj.isRemote) //check world. random doesnt sync ?
+												player.getHeldItem(heldFood).stackSize--;
 
+										
+										int chance = ec.worldObj.rand.nextInt(27 - (beastmaster.getAnimalAffinity()/10)); //results in 27 - max255/10 = 2
+										if(!ec.worldObj.isRemote){
+											System.out.println(chance + " " + (27 - (beastmaster.getAnimalAffinity()/10)) + " " + beastmaster.getAnimalAffinity());
+										}
+
+										if(!ec.isChild()){
+											if(chance == 0 && !ec.worldObj.isRemote){
+												EntityItem ei = new EntityItem(ec.worldObj, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.worldObj.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
+												//this should trigger panic ai
+												ec.setRevengeTarget(player);
+												//its better to attack them to prevent infinite harvest
+												ec.attackEntityFrom(DamageSource.causePlayerDamage(player), 2);
+												ec.worldObj.spawnEntityInWorld(ei);
+												player.worldObj.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
+												
 												if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
 													beastmaster.addAnimalAffinity(3);
 												else
 													beastmaster.addAnimalAffinity(1);
 											}
 										}
-										else if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
-											transformChildToCrystal((EntityAnimal)ec, player);
-
-									}else if(ec instanceof EntitySpider){
-										//TODO re-implement when mode angles are changeable
-										//										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
-										//											beastmaster.setPetting(true);
-										//											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
-										//											//set false before checking anything. if it is set to true after, this will have no consequence
-										//										}
-
-										if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
-											transformAdultToCrystal(ec, player);
 									}
+									else if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+										transformChildToCrystal((EntityAnimal)ec, player);
+
+								}else if(ec instanceof EntitySpider){
+									//TODO re-implement when mode angles are changeable
+									//										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
+									//											beastmaster.setPetting(true);
+									//											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
+									//											//set false before checking anything. if it is set to true after, this will have no consequence
+									//										}
+
+									if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+										transformAdultToCrystal(ec, player);
 								}
 							}
 						}
