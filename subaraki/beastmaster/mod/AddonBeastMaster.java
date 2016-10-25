@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import subaraki.beastmaster.capability.BmCapability;
 import subaraki.beastmaster.entity.BeastMasterPet;
+import subaraki.beastmaster.event.EventAddAI;
 import subaraki.beastmaster.event.EventBeastmasterAttraction;
 import subaraki.beastmaster.event.EventOnRpgGuiOpened;
 import subaraki.beastmaster.event.EventPetExperience;
@@ -53,6 +54,8 @@ public class AddonBeastMaster {
 		new BeastMasterPet(); //Initialise pet data, like getting meta from a pet, or spawning it from a crystal
 
 		new NetworkHandler();
+		
+		new EventAddAI();
 	}
 
 	@EventHandler
