@@ -1,19 +1,9 @@
 package subaraki.beastmaster.entity.ai;
 
-import java.util.Random;
-
-import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.stats.AchievementList;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumParticleTypes;
 import subaraki.beastmaster.capability.BmCapability;
-import subaraki.beastmaster.capability.BmData;
 
 public class EntityAIMateHookin extends EntityAIBase{
 

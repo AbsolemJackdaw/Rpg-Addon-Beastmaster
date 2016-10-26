@@ -6,28 +6,16 @@ import lib.playerclass.PlayerClass;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagEnd;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
 import subaraki.beastmaster.capability.BmCapability;
 import subaraki.beastmaster.capability.BmData;
-import subaraki.beastmaster.capability.CapabilityBmProvider;
-import subaraki.beastmaster.entity.BeastMasterPet;
-import subaraki.beastmaster.entity.EntityBeastmasterPet;
 import subaraki.beastmaster.entity.SummonStowPetLogic;
-import subaraki.beastmaster.handler.proxy.ClientProxy;
-import subaraki.beastmaster.handler.proxy.ServerProxy;
-import subaraki.beastmaster.item.armor.ItemBeastmasterArmor;
-import subaraki.beastmaster.mod.AddonBeastMaster;
 import subaraki.beastmaster.sounds.BeastMasterSounds;
-import subaraki.rpginventory.capability.playerinventory.CapabilityInventoryProvider;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
-import subaraki.rpginventory.enums.SlotIndex;
 
 public class ItemWhistle extends Item{
 
@@ -42,11 +30,12 @@ public class ItemWhistle extends Item{
 			RpgPlayerInventory inv = playerIn.getCapability(RpgInventoryCapability.CAPABILITY, null);
 			BmData beastmaster = playerIn.getCapability(BmCapability.CAPABILITY, null);
 
-			if(inv.getCrystal() != null){
-				if(beastmaster.getPetUuid() == null)
-					SummonStowPetLogic.summonPet(playerIn);
-				else
-					SummonStowPetLogic.stowPet(playerIn);
+			if(inv.getCrystal() != null && inv.getCrystal().getMetadata() > 0){
+				if(!worldIn.isRemote)
+					if(beastmaster.getPetUuid() == null)
+						SummonStowPetLogic.summonPet(playerIn);
+					else
+						SummonStowPetLogic.stowPet(playerIn);
 				playerIn.playSound(BeastMasterSounds.whistle, 1f, 1f);
 			}else{
 				if(!worldIn.isRemote)

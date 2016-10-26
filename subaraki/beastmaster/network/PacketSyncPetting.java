@@ -1,15 +1,11 @@
 package subaraki.beastmaster.network;
 
-import java.util.UUID;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import subaraki.beastmaster.capability.BmCapability;
-import subaraki.beastmaster.capability.BmData;
 
 public class PacketSyncPetting implements IMessage {
 

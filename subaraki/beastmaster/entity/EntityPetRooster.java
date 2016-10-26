@@ -1,7 +1,6 @@
 package subaraki.beastmaster.entity;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -57,7 +56,7 @@ public class EntityPetRooster extends EntityBeastmasterPet{
 
 	@Override
 	public float getSpeedIncreaseForLeveling() {
-		return 0.3F + (float)getLevel() / 400f;
+		return 0.3F + (float)getLevel() / 250F;
 	}
 
 	@Override

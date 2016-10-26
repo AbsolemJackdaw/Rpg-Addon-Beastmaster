@@ -4,7 +4,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import subaraki.beastmaster.network.PacketStowPet.PacketStowPetHandler;
 import subaraki.beastmaster.network.PacketSyncPetting.PacketSyncPettingHandler;
-import subaraki.petbuddy.network.PacketStowOrSummonPet.PacketStowOrSummonPetHandler;
 
 public class NetworkHandler {
 

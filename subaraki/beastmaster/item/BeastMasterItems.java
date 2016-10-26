@@ -1,6 +1,9 @@
 package subaraki.beastmaster.item;
 
-import static lib.item.ItemRegistry.*;
+import static lib.item.ItemRegistry.addArmorRecipe;
+import static lib.item.ItemRegistry.registerItem;
+import static lib.item.ItemRegistry.registerRender;
+import static lib.item.ItemRegistry.registerVanillaRender;
 
 import lib.item.shield.ItemCustomShield;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,8 +16,6 @@ import subaraki.beastmaster.item.armor.ItemBeastmasterArmor;
 import subaraki.beastmaster.item.weapon.ItemClaws;
 import subaraki.beastmaster.mod.AddonBeastMaster;
 import subaraki.rpginventory.enums.JewelTypes;
-import subaraki.rpginventory.item.RpgInventoryItem;
-import subaraki.rpginventory.item.RpgItems.LocalizeEnum;
 
 public class BeastMasterItems {
 
@@ -89,6 +90,10 @@ public class BeastMasterItems {
 		
 		GameRegistry.addShapedRecipe(new ItemStack(claws,1), new Object[]{
 				"ccc","fff","fff", 'f', fur, 'c', claw
+		});
+		
+		GameRegistry.addShapedRecipe(new ItemStack(whistle), new Object[]{
+				"XN","NX", 'X', Items.REEDS
 		});
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(craftLeather,2), fur, Items.LEATHER, Items.RABBIT_HIDE);

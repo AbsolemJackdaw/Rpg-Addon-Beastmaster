@@ -55,7 +55,7 @@ public class SummonStowPetLogic {
 
 			if(pet != null){
 				savePet(pet, player);
-				pet.setDead();
+				pet.isDead = true; //manually do 'setDead' as said method stows pet
 			}
 			//set null anyway, for when stowing is called from loging in riding the pet
 			beastmaster.setPetid(null);

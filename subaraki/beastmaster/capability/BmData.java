@@ -2,9 +2,6 @@ package subaraki.beastmaster.capability;
 
 import java.util.UUID;
 
-import com.google.common.base.Optional;
-import com.google.common.primitives.UnsignedBytes;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

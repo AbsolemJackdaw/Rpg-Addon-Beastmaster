@@ -4,26 +4,15 @@ import java.util.List;
 
 import lib.playerclass.PlayerClass;
 import lib.util.Targetting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIFollowParent;
-import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.Path;
-import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -32,15 +21,10 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import scala.reflect.api.Quasiquotes.Quasiquote.api;
 import subaraki.beastmaster.capability.BmCapability;
 import subaraki.beastmaster.capability.BmData;
 import subaraki.beastmaster.entity.BeastMasterPet;
 import subaraki.beastmaster.item.BeastMasterItems;
-import subaraki.beastmaster.mod.AddonBeastMaster;
-import subaraki.beastmaster.network.NetworkHandler;
-import subaraki.beastmaster.network.PacketSyncPetting;
 
 public class EventBeastmasterAttraction {
 
@@ -121,9 +105,6 @@ public class EventBeastmasterAttraction {
 
 										
 										int chance = ec.worldObj.rand.nextInt(27 - (beastmaster.getAnimalAffinity()/10)); //results in 27 - max255/10 = 2
-										if(!ec.worldObj.isRemote){
-											System.out.println(chance + " " + (27 - (beastmaster.getAnimalAffinity()/10)) + " " + beastmaster.getAnimalAffinity());
-										}
 
 										if(!ec.isChild()){
 											if(chance == 0 && !ec.worldObj.isRemote){

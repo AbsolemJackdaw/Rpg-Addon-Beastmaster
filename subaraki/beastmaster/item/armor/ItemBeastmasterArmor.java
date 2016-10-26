@@ -1,10 +1,7 @@
 package subaraki.beastmaster.item.armor;
 
-import org.apache.http.client.params.ClientParamBean;
-
 import lib.item.armor.ModeledArmor;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
