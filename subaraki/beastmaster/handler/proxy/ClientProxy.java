@@ -106,8 +106,6 @@ public class ClientProxy extends ServerProxy {
 
 	@Override
 	public void addRenderLayers() {
-		RenderPlayer p = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
-		RenderPlayer p2 = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
 
 	}
 

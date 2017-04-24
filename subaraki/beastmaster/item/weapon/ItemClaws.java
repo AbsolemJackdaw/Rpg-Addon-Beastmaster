@@ -46,8 +46,10 @@ public class ItemClaws extends ItemSword{
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand){
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand){
 
+		ItemStack itemStackIn = playerIn.getHeldItem(hand);
+		
 		if(hand.equals(EnumHand.OFF_HAND)){
 			playerIn.setActiveHand(hand);
 			return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);

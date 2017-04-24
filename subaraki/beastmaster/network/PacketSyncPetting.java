@@ -34,7 +34,7 @@ public class PacketSyncPetting implements IMessage {
 		@Override
 		public IMessage onMessage(PacketSyncPetting message, MessageContext ctx) {
 			Minecraft.getMinecraft().addScheduledTask(() -> {
-				Minecraft.getMinecraft().thePlayer.getCapability(BmCapability.CAPABILITY, null).setPetting(message.isPetting);
+				Minecraft.getMinecraft().player.getCapability(BmCapability.CAPABILITY, null).setPetting(message.isPetting);
 			});
 			return null;
 		}

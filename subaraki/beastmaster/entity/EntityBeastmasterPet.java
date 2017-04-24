@@ -214,25 +214,27 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 	////////////////////////////////////////////////////////////////////////////////
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		
 		if(getOwner() instanceof EntityPlayer && ((EntityPlayer)getOwner()).equals(player)){
 			if(stack != null ){
 				if(stack.getItem().equals(Items.GOLDEN_CARROT)){
 					this.addExperience(9 + rand.nextInt(4));
-					stack.stackSize--;
+					stack.shrink(1);
 					return true;
 				}
 				if(stack.getItem() instanceof ItemFood){
 					if(getHealth() < getMaxHealth()){
 						heal(1);
-						stack.stackSize--;
-						worldObj.spawnParticle(EnumParticleTypes.HEART, posX,posY+0.5,posZ,0,0,0,new int[0]);
+						stack.shrink(1);
+						world.spawnParticle(EnumParticleTypes.HEART, posX,posY+0.5,posZ,0,0,0,new int[0]);
 					}
 					return true;
 				}
 				if(!isSaddled() && stack.getItem().equals(Items.SADDLE) && getLevel() >= 50){
 					setSaddled();
-					stack.stackSize--;
+					stack.shrink(1);
 					return true;
 				}
 
@@ -310,7 +312,7 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 		player.rotationYaw = this.rotationYaw;
 		player.rotationPitch = this.rotationPitch;
 
-		if (!this.worldObj.isRemote){
+		if (!this.world.isRemote){
 			player.startRiding(this);
 		}
 	}
@@ -354,7 +356,7 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 			this.prevLimbSwingAmount = this.limbSwingAmount;
 			double d1 = this.posX - this.prevPosX;
 			double d0 = this.posZ - this.prevPosZ;
-			float f2 = MathHelper.sqrt_double(d1 * d1 + d0 * d0) * 4.0F;
+			float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
 			if (f2 > 1.0F)
 			{

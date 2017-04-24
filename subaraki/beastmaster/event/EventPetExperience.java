@@ -22,7 +22,7 @@ public class EventPetExperience {
 			//10 for mobs (+ 1 per equipment worn)
 			//1 + random 3 for animals
 			int exp = event.getEntityLiving() instanceof EntityMob ? 8 : event.getEntityLiving() instanceof EntityDragon ? 498 :  event.getEntityLiving() instanceof EntityWither ? 48 : 2;
-			exp += event.getEntityLiving().worldObj.rand.nextInt(4);
+			exp += event.getEntityLiving().world.rand.nextInt(4);
 			
 			((EntityBeastmasterPet)event.getSource().getEntity()).addExperience(exp);
 		}

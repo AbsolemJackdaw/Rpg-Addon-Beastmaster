@@ -36,7 +36,7 @@ public class EntityPetBull extends EntityBeastmasterPet{
 	public float getAttackDamage() {
 		// 4 Base Damage
 		// 15 Damage at level 200
-		return (4 + MathHelper.floor_double(((getLevel()) * 1.0D) / 14.18D));
+		return (4 + MathHelper.floor(((getLevel()) * 1.0D) / 14.18D));
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class EntityPetBull extends EntityBeastmasterPet{
 
 	@Override
 	public float getHealthIncreaseForLeveling() {
-		return 30F + MathHelper.floor_float((float)getLevel()/1.538F);
+		return 30F + MathHelper.floor((float)getLevel()/1.538F);
 	}
 
 	@Override

@@ -33,8 +33,8 @@ public class BeastMasterItems {
 
 	public static final CreativeTabs tab =  new CreativeTabs("addon_beastmaster") {
 		@Override
-		public Item getTabIconItem() {
-			return bm_helm;
+		public ItemStack getTabIconItem() {
+			return new ItemStack(bm_helm);
 		}
 	};
 

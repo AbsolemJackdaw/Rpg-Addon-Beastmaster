@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import subaraki.beastmaster.entity.EntityBeastmasterPet;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.item.RpgInventoryItem;
@@ -19,7 +20,7 @@ public class ItemCrystal extends RpgInventoryItem{
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (int i = 0; i < 5; ++i){
 			subItems.add(new ItemStack(itemIn, 1, i));
 		}

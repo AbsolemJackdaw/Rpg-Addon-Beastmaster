@@ -17,7 +17,7 @@ public class SummonStowPetLogic {
 
 		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 		BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
-		World world = player.worldObj;
+		World world = player.world;
 
 		if(inv.getCrystal() != null){
 
@@ -30,7 +30,7 @@ public class SummonStowPetLogic {
 
 				if(pet != null)
 					if(!world.isRemote){
-						world.spawnEntityInWorld(pet);
+						world.spawnEntity(pet);
 						beastmaster.setPetid(pet.getUniqueID());
 					}
 			}
@@ -41,7 +41,7 @@ public class SummonStowPetLogic {
 	public static void stowPet(EntityPlayer player){
 
 		BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
-		World world = player.worldObj;
+		World world = player.world;
 
 		if(beastmaster.getPetUuid() != null){
 			EntityBeastmasterPet pet = null;

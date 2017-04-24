@@ -24,8 +24,10 @@ public class ItemWhistle extends Item{
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn,EnumHand hand) {
 
+		ItemStack itemStackIn = playerIn.getHeldItem(hand);
+		
 		if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){
 			RpgPlayerInventory inv = playerIn.getCapability(RpgInventoryCapability.CAPABILITY, null);
 			BmData beastmaster = playerIn.getCapability(BmCapability.CAPABILITY, null);
@@ -39,12 +41,12 @@ public class ItemWhistle extends Item{
 				playerIn.playSound(BeastMasterSounds.whistle, 1f, 1f);
 			}else{
 				if(!worldIn.isRemote)
-					playerIn.addChatComponentMessage(new TextComponentString(ChatFormatting.ITALIC+"You blow the whistle but forgot to get a pet"));
+					playerIn.sendMessage(new TextComponentString(ChatFormatting.ITALIC+"You blow the whistle but forgot to get a pet"));
 			}
 		}else{
 			if(!worldIn.isRemote)
-				playerIn.addChatComponentMessage(new TextComponentString(ChatFormatting.ITALIC+"You lack the mastery of Beasts to use this whistle"));
+				playerIn.sendMessage(new TextComponentString(ChatFormatting.ITALIC+"You lack the mastery of Beasts to use this whistle"));
 		}
-		return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+		return super.onItemRightClick(worldIn, playerIn, hand);
 	}
 }

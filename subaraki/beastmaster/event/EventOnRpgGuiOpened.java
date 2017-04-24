@@ -22,7 +22,7 @@ public class EventOnRpgGuiOpened {
 	@SubscribeEvent
 	public void onguiopen(GuiOpenEvent event){
 		if(event.getGui() instanceof GuiRpg){
-			UUID uuid = Minecraft.getMinecraft().thePlayer.getUniqueID();
+			UUID uuid = Minecraft.getMinecraft().player.getUniqueID();
 			NetworkHandler.NETWORK.sendToServer(new PacketStowPet(uuid));
 		}
 	}

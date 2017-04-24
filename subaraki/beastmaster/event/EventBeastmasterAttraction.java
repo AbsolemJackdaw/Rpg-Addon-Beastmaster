@@ -83,7 +83,7 @@ public class EventBeastmasterAttraction {
 							if(ec instanceof EntityCreature && (ec instanceof EntityAnimal || ec instanceof EntitySpider))
 							{
 
-								ec.worldObj.spawnParticle(EnumParticleTypes.HEART, ec.posX, ec.posY+1, ec.posZ, 0, 0, 0, new int[0]);
+								ec.world.spawnParticle(EnumParticleTypes.HEART, ec.posX, ec.posY+1, ec.posZ, 0, 0, 0, new int[0]);
 								ec.getNavigator().tryMoveToEntityLiving(player, 1.0);
 								ec.getLookHelper().setLookPositionWithEntity(ec, (float)(ec.getHorizontalFaceSpeed() + 20), (float)ec.getVerticalFaceSpeed());
 
@@ -100,21 +100,21 @@ public class EventBeastmasterAttraction {
 										//										}
 
 										if(isHoldingFood)
-											if(player.worldObj.rand.nextInt(14)== 0 && !player.worldObj.isRemote) //check world. random doesnt sync ?
-												player.getHeldItem(heldFood).stackSize--;
+											if(player.world.rand.nextInt(14)== 0 && !player.world.isRemote) //check world. random doesnt sync ?
+												player.getHeldItem(heldFood).shrink(1);
 
 										
-										int chance = ec.worldObj.rand.nextInt(27 - (beastmaster.getAnimalAffinity()/10)); //results in 27 - max255/10 = 2
+										int chance = ec.world.rand.nextInt(27 - (beastmaster.getAnimalAffinity()/10)); //results in 27 - max255/10 = 2
 
 										if(!ec.isChild()){
-											if(chance == 0 && !ec.worldObj.isRemote){
-												EntityItem ei = new EntityItem(ec.worldObj, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.worldObj.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
+											if(chance == 0 && !ec.world.isRemote){
+												EntityItem ei = new EntityItem(ec.world, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.world.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
 												//this should trigger panic ai
 												ec.setRevengeTarget(player);
 												//its better to attack them to prevent infinite harvest
 												ec.attackEntityFrom(DamageSource.causePlayerDamage(player), 2);
-												ec.worldObj.spawnEntityInWorld(ei);
-												player.worldObj.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
+												ec.world.spawnEntity(ei);
+												player.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
 												
 												if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
 													beastmaster.addAnimalAffinity(3);
@@ -147,15 +147,15 @@ public class EventBeastmasterAttraction {
 
 	private void transformAdultToCrystal(EntityCreature ec, EntityPlayer player){
 
-		int chance = ec.worldObj.rand.nextInt(2);
-		if(chance == 0 && !ec.worldObj.isRemote){
+		int chance = ec.world.rand.nextInt(2);
+		if(chance == 0 && !ec.world.isRemote){
 			BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
 			int chance2 = beastmaster.getAnimalAffinity() > 100 ? 2 : 4;
-			if(ec.worldObj.rand.nextInt(chance2)==0 || beastmaster.getAnimalAffinity() > 200){
+			if(ec.world.rand.nextInt(chance2)==0 || beastmaster.getAnimalAffinity() > 200){
 				ec.setDead();
 				int damage = BeastMasterPet.instance.getDamageFromEntity(ec);
-				EntityItem ei = new EntityItem(ec.worldObj, ec.posX, ec.posY, ec.posZ, new ItemStack(BeastMasterItems.crystal,1,damage));
-				ec.worldObj.spawnEntityInWorld(ei);
+				EntityItem ei = new EntityItem(ec.world, ec.posX, ec.posY, ec.posZ, new ItemStack(BeastMasterItems.crystal,1,damage));
+				ec.world.spawnEntity(ei);
 			}else{
 				ec.knockBack(ec, 2, -player.getLookVec().xCoord, -player.getLookVec().zCoord);
 				ec.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, 1, 1);
@@ -165,12 +165,12 @@ public class EventBeastmasterAttraction {
 
 	private void transformChildToCrystal(EntityAnimal ea, EntityPlayer player){
 
-		int chance = ea.worldObj.rand.nextInt(2);
+		int chance = ea.world.rand.nextInt(2);
 
-		if(ea.isChild() && chance == 0 && !ea.worldObj.isRemote){
+		if(ea.isChild() && chance == 0 && !ea.world.isRemote){
 
 			EntityAnimal parent = null;
-			List<EntityAnimal> list = ea.worldObj.<EntityAnimal>getEntitiesWithinAABB(ea.getClass(), ea.getEntityBoundingBox().expand(8.5D, 4.5D, 8.5D));//look further then the original ai
+			List<EntityAnimal> list = ea.world.<EntityAnimal>getEntitiesWithinAABB(ea.getClass(), ea.getEntityBoundingBox().expand(8.5D, 4.5D, 8.5D));//look further then the original ai
 
 			for (EntityAnimal aParent : list){
 				if(aParent.getClass().equals(ea.getClass())){ //same animal
@@ -183,11 +183,11 @@ public class EventBeastmasterAttraction {
 			if(parent == null){
 				BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
 				int chance2 = beastmaster.getAnimalAffinity() > 100 ? 2 : 4;
-				if(ea.worldObj.rand.nextInt(chance2) == 0 || beastmaster.getAnimalAffinity() > 200){
+				if(ea.world.rand.nextInt(chance2) == 0 || beastmaster.getAnimalAffinity() > 200){
 					ea.setDead();
 					int damage = BeastMasterPet.instance.getDamageFromEntity(ea);
-					EntityItem ei = new EntityItem(ea.worldObj, ea.posX, ea.posY, ea.posZ, new ItemStack(BeastMasterItems.crystal,1,damage));
-					ea.worldObj.spawnEntityInWorld(ei);
+					EntityItem ei = new EntityItem(ea.world, ea.posX, ea.posY, ea.posZ, new ItemStack(BeastMasterItems.crystal,1,damage));
+					ea.world.spawnEntity(ei);
 				}
 				else{
 					player.attackEntityFrom(DamageSource.causeMobDamage(ea), 2);
