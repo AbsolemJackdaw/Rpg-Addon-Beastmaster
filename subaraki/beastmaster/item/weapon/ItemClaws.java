@@ -60,7 +60,7 @@ public class ItemClaws extends ItemSword{
 	
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		if(repair != null && repair.getItem().equals(BeastMasterItems.fur))
+		if(repair != ItemStack.EMPTY && repair.getItem().equals(BeastMasterItems.fur))
 			return true;
 		return super.getIsRepairable(toRepair, repair);
 	}

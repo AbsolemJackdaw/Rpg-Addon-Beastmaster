@@ -32,7 +32,7 @@ public class ItemWhistle extends Item{
 			RpgPlayerInventory inv = playerIn.getCapability(RpgInventoryCapability.CAPABILITY, null);
 			BmData beastmaster = playerIn.getCapability(BmCapability.CAPABILITY, null);
 
-			if(inv.getCrystal() != null && inv.getCrystal().getMetadata() > 0){
+			if(inv.getCrystal() != ItemStack.EMPTY && inv.getCrystal().getMetadata() > 0){
 				if(!worldIn.isRemote)
 					if(beastmaster.getPetUuid() == null)
 						SummonStowPetLogic.summonPet(playerIn);

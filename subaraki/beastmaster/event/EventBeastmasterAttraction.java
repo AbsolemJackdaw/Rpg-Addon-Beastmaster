@@ -48,8 +48,8 @@ public class EventBeastmasterAttraction {
 
 				if(!PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){//if regular player
 
-					if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem().equals(BeastMasterItems.lure) || 
-							player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure)){		
+					if(player.getHeldItemMainhand() != ItemStack.EMPTY && player.getHeldItemMainhand().getItem().equals(BeastMasterItems.lure) || 
+							player.getHeldItemOffhand() != ItemStack.EMPTY && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure)){		
 						isHoldingFood = true;
 						heldFood =  player.getHeldItemOffhand()!= null && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure) ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 

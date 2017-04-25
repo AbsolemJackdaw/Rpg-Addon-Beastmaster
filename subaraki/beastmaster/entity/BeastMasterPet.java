@@ -31,7 +31,7 @@ public class BeastMasterPet {
 	public EntityBeastmasterPet getNewPet(World world, ItemStack crystal, EntityPlayer player){
 		EntityBeastmasterPet pet = null;
 
-		if(crystal != null){
+		if(crystal != ItemStack.EMPTY){
 			if(crystal.getMetadata() == 0)
 				return null;
 			

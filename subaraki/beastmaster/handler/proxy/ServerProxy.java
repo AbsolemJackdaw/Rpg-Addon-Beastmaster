@@ -19,10 +19,10 @@ public class ServerProxy {
 	public ModelBase getPetModel(String identifier){return null;};
 	
 	public void registerEntities(){
-		EntityRegistry.registerModEntity(new ResourceLocation("spider_pet"), EntityPetSpider.class, "spider_pet", 0, AddonBeastMaster.MODID, 256, 4, true);
-		EntityRegistry.registerModEntity(new ResourceLocation("boar_pet"),EntityPetBoar.class, "boar_pet", 1, AddonBeastMaster.MODID, 256, 4, true);
-		EntityRegistry.registerModEntity(new ResourceLocation("bull_pet"),EntityPetBull.class, "bull_pet", 2, AddonBeastMaster.MODID, 256, 4, true);
-		EntityRegistry.registerModEntity(new ResourceLocation("rooster_pet"),EntityPetRooster.class, "rooster_pet", 3, AddonBeastMaster.MODID, 256, 4, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("beastmaster","spider_pet"), EntityPetSpider.class, "spider_pet", 0, AddonBeastMaster.MODID, 256, 4, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("beastmaster","boar_pet"),EntityPetBoar.class, "boar_pet", 1, AddonBeastMaster.MODID, 256, 4, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("beastmaster","bull_pet"),EntityPetBull.class, "bull_pet", 2, AddonBeastMaster.MODID, 256, 4, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("beastmaster","rooster_pet"),EntityPetRooster.class, "rooster_pet", 3, AddonBeastMaster.MODID, 256, 4, true);
 
 	}
 }

@@ -66,7 +66,7 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 	public EntityBeastmasterPet(World world, ItemStack crystal) {
 		this(world);
 
-		if(crystal != null){
+		if(crystal != ItemStack.EMPTY){
 			//important data related to livingbase
 			if(crystal.hasTagCompound() && crystal.getTagCompound().hasKey(NBT_STACKDATA_LIVING)){
 				readEntityFromNBT((NBTTagCompound) crystal.getTagCompound().getTag(NBT_STACKDATA_LIVING));
@@ -218,7 +218,7 @@ public abstract class EntityBeastmasterPet extends EntityTameable{
 		ItemStack stack = player.getHeldItem(hand);
 		
 		if(getOwner() instanceof EntityPlayer && ((EntityPlayer)getOwner()).equals(player)){
-			if(stack != null ){
+			if(stack != ItemStack.EMPTY ){
 				if(stack.getItem().equals(Items.GOLDEN_CARROT)){
 					this.addExperience(9 + rand.nextInt(4));
 					stack.shrink(1);

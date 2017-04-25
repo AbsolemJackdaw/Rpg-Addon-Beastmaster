@@ -19,7 +19,7 @@ public class SummonStowPetLogic {
 		BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
 		World world = player.world;
 
-		if(inv.getCrystal() != null){
+		if(inv.getCrystal() != ItemStack.EMPTY){
 
 			if(beastmaster.getPetUuid() != null) // in case when riding or having the pet loaded when logging out
 				stowPet(player);
@@ -66,7 +66,7 @@ public class SummonStowPetLogic {
 	public static void savePet(EntityBeastmasterPet pet, EntityPlayer player){
 		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 		ItemStack crystal = inv.getCrystal();
-		if(crystal != null)
+		if(crystal != ItemStack.EMPTY)
 			if(pet != null){
 
 				NBTTagCompound livingTag = new NBTTagCompound();
