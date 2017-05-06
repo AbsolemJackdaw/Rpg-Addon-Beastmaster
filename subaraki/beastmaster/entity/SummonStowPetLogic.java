@@ -8,14 +8,14 @@ import net.minecraft.world.World;
 import subaraki.beastmaster.capability.BmCapability;
 import subaraki.beastmaster.capability.BmData;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.enums.SlotIndex;
 
 public class SummonStowPetLogic {
 
 	public static void summonPet(EntityPlayer player){
 
-		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inv = RpgInventoryData.get(player);
 		BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
 		World world = player.world;
 
@@ -64,7 +64,7 @@ public class SummonStowPetLogic {
 
 	/**saves the pet to the payer's crystal*/
 	public static void savePet(EntityBeastmasterPet pet, EntityPlayer player){
-		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inv = RpgInventoryData.get(player);
 		ItemStack crystal = inv.getCrystal();
 		if(crystal != ItemStack.EMPTY)
 			if(pet != null){

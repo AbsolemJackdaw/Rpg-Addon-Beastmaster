@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
@@ -24,15 +25,15 @@ public class ItemClaws extends ItemSword{
 
 	public ItemClaws() {
 		super(claws);
-		
+
 		this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
-        {
-            @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-            {
-                return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
-            }
-        });
+		{
+			@SideOnly(Side.CLIENT)
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+			{
+				return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
+			}
+		});
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class ItemClaws extends ItemSword{
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand){
 
 		ItemStack itemStackIn = playerIn.getHeldItem(hand);
-		
+
 		if(hand.equals(EnumHand.OFF_HAND)){
 			playerIn.setActiveHand(hand);
 			return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
@@ -57,11 +58,9 @@ public class ItemClaws extends ItemSword{
 			return new ActionResult(EnumActionResult.PASS, itemStackIn);
 		}
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		if(repair != ItemStack.EMPTY && repair.getItem().equals(BeastMasterItems.fur))
-			return true;
-		return super.getIsRepairable(toRepair, repair);
+		return repair.getItem().equals(BeastMasterItems.claw) ? true : super.getIsRepairable(toRepair, repair);
 	}
 }

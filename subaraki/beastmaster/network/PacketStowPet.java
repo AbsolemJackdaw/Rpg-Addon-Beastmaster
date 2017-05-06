@@ -35,8 +35,8 @@ public class PacketStowPet implements IMessage{
 
 		@Override
 		public IMessage onMessage(PacketStowPet message, MessageContext ctx) {
-			((WorldServer)ctx.getServerHandler().playerEntity.world).addScheduledTask(() -> {
-				EntityPlayer player = ctx.getServerHandler().playerEntity.world.getPlayerEntityByUUID(message.uuid);
+			((WorldServer)ctx.getServerHandler().player.world).addScheduledTask(() -> {
+				EntityPlayer player = ctx.getServerHandler().player.world.getPlayerEntityByUUID(message.uuid);
 				
 				SummonStowPetLogic.stowPet(player);
 			});

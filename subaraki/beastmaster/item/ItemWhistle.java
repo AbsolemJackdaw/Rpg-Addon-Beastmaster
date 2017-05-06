@@ -15,7 +15,7 @@ import subaraki.beastmaster.capability.BmData;
 import subaraki.beastmaster.entity.SummonStowPetLogic;
 import subaraki.beastmaster.sounds.BeastMasterSounds;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 
 public class ItemWhistle extends Item{
 
@@ -29,7 +29,7 @@ public class ItemWhistle extends Item{
 		ItemStack itemStackIn = playerIn.getHeldItem(hand);
 		
 		if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){
-			RpgPlayerInventory inv = playerIn.getCapability(RpgInventoryCapability.CAPABILITY, null);
+			RpgInventoryData inv = RpgInventoryData.get(playerIn);
 			BmData beastmaster = playerIn.getCapability(BmCapability.CAPABILITY, null);
 
 			if(inv.getCrystal() != ItemStack.EMPTY && inv.getCrystal().getMetadata() > 0){
