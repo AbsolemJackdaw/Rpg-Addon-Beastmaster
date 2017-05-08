@@ -8,6 +8,11 @@ item.beastmaster.roughfur.name=Rough Fur
 item.beastmaster.animalclaw.name=Animal Claw
 item.beastmaster.whistle.name=Pet Whistle
 
+item.beastmaster.craftLeather.name=Feral Leather
+item.beastmaster.lure.name=Animal Lure
+
+itemGroup.addon_beastmaster=BeastMaster Class
+
 item.beastmaster.crystal_0.name=Empty Crystal
 item.beastmaster.crystal_1.name=Boar Pet
 item.beastmaster.crystal_2.name=Spider Pet

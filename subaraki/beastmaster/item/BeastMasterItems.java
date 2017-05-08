@@ -7,11 +7,15 @@ import static lib.item.ItemRegistry.registerVanillaRender;
 
 import lib.item.shield.ItemCustomShield;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import subaraki.beastmaster.item.armor.ItemBeastmasterArmor;
 import subaraki.beastmaster.item.weapon.ItemClaws;
 import subaraki.beastmaster.mod.AddonBeastMaster;
@@ -66,6 +70,9 @@ public class BeastMasterItems {
 
 		craftLeather = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".craftLeather").setRegistryName(modid+".craftLeather");
 		register();
+		
+		addToOreDict();
+		
 		registerRecipes();
 	}
 
@@ -83,22 +90,37 @@ public class BeastMasterItems {
 		registerItem(craftLeather);
 	}
 
-	private static void registerRecipes(){
+	private static void addToOreDict(){
 		Item rawMeats[] = new Item[]{Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.MUTTON, Items.CHICKEN};
+		
 		for(Item meat : rawMeats)
-			GameRegistry.addShapelessRecipe(new ItemStack(lure, 3), Items.WHEAT, Items.SUGAR, Items.CARROT, meat);
+			OreDictionary.registerOre("meatRaw", meat);
+		
+		OreDictionary.registerOre("vegetable", Items.POTATO);
+		OreDictionary.registerOre("vegetable", Items.BEETROOT);
+		OreDictionary.registerOre("vegetable", Items.CARROT);
+		OreDictionary.registerOre("vegetable", Blocks.BROWN_MUSHROOM);
+		OreDictionary.registerOre("vegetable", Blocks.RED_MUSHROOM);
+		
+		OreDictionary.registerOre("sugar", Items.SUGAR);
+
+	}
+
+	private static void registerRecipes(){
+
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(lure, 3), Items.WHEAT, "sugar", "meatRaw", "vegetable"));
 		
 		GameRegistry.addShapedRecipe(new ItemStack(claws,1), new Object[]{
 				"ccc","fff","fff", 'f', fur, 'c', claw
 		});
-		
+
 		GameRegistry.addShapedRecipe(new ItemStack(whistle), new Object[]{
 				"XN","NX", 'X', Items.REEDS
 		});
-		
+
 		GameRegistry.addShapelessRecipe(new ItemStack(craftLeather,2), fur, Items.LEATHER, Items.RABBIT_HIDE);
-		
-		
+
+
 		addArmorRecipe(bm_helm, craftLeather, EntityEquipmentSlot.HEAD);
 		addArmorRecipe(bm_chest, craftLeather, EntityEquipmentSlot.CHEST);
 		addArmorRecipe(bm_legs, craftLeather, EntityEquipmentSlot.LEGS);
@@ -110,7 +132,7 @@ public class BeastMasterItems {
 		registerRender(bm_chest, bm_chest.getModeltextureLocation(), modid);
 		registerRender(bm_legs, bm_legs.getModeltextureLocation(), modid);
 		registerRender(bm_feet, bm_feet.getModeltextureLocation(), modid);
-		
+
 		registerRender(claws, "weapon/claw", modid);
 		registerRender(fur, "fur", modid);
 		registerRender(claw, "claw", modid);
@@ -119,6 +141,6 @@ public class BeastMasterItems {
 		registerRender(whistle, "whistle", modid);
 		registerRender(lure, "lure", modid);
 		registerVanillaRender(craftLeather, "leather", 0);
-		
+
 	}
 }
