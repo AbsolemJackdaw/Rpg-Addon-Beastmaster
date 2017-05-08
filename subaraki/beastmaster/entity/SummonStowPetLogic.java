@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import subaraki.beastmaster.capability.BmCapability;
 import subaraki.beastmaster.capability.BmData;
-import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.enums.SlotIndex;
 

@@ -9,7 +9,6 @@ import net.minecraft.client.model.ModelPig;
 import net.minecraft.client.model.ModelSpider;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import subaraki.beastmaster.entity.EntityPetBoar;
