@@ -2,7 +2,7 @@ package subaraki.beastmaster.item;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-import lib.playerclass.PlayerClass;
+import lib.playerclass.capability.PlayerClass;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,6 @@ import subaraki.beastmaster.capability.BmCapability;
 import subaraki.beastmaster.capability.BmData;
 import subaraki.beastmaster.entity.SummonStowPetLogic;
 import subaraki.beastmaster.sounds.BeastMasterSounds;
-import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 
 public class ItemWhistle extends Item{
@@ -28,7 +27,7 @@ public class ItemWhistle extends Item{
 
 		ItemStack itemStackIn = playerIn.getHeldItem(hand);
 		
-		if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){
+		if(PlayerClass.armorClass(playerIn).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){
 			RpgInventoryData inv = RpgInventoryData.get(playerIn);
 			BmData beastmaster = playerIn.getCapability(BmCapability.CAPABILITY, null);
 

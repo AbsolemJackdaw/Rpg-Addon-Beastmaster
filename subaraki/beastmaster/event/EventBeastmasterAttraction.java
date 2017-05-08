@@ -2,7 +2,7 @@ package subaraki.beastmaster.event;
 
 import java.util.List;
 
-import lib.playerclass.PlayerClass;
+import lib.playerclass.capability.PlayerClass;
 import lib.util.Targetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -46,7 +46,7 @@ public class EventBeastmasterAttraction {
 				boolean isHoldingFood = false;
 				EnumHand heldFood = EnumHand.MAIN_HAND;
 
-				if(!PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){//if regular player
+				if(!PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){//if regular player
 
 					if(player.getHeldItemMainhand() != ItemStack.EMPTY && player.getHeldItemMainhand().getItem().equals(BeastMasterItems.lure) || 
 							player.getHeldItemOffhand() != ItemStack.EMPTY && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure)){		
@@ -116,14 +116,14 @@ public class EventBeastmasterAttraction {
 												ec.world.spawnEntity(ei);
 												player.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
 												
-												if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+												if(PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
 													beastmaster.addAnimalAffinity(3);
 												else
 													beastmaster.addAnimalAffinity(1);
 											}
 										}
 									}
-									else if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+									else if(PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
 										transformChildToCrystal((EntityAnimal)ec, player);
 
 								}else if(ec instanceof EntitySpider){
@@ -134,7 +134,7 @@ public class EventBeastmasterAttraction {
 									//											//set false before checking anything. if it is set to true after, this will have no consequence
 									//										}
 
-									if(PlayerClass.isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+									if(PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
 										transformAdultToCrystal(ec, player);
 								}
 							}
