@@ -27,7 +27,7 @@ public class ItemWhistle extends Item{
 
 		ItemStack itemStackIn = playerIn.getHeldItem(hand);
 		
-		if(PlayerClass.armorClass(playerIn).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){
+		if(PlayerClass.get(playerIn).isPlayerClass(BeastMasterItems.BEASTMASTER_CLASS)){
 			RpgInventoryData inv = RpgInventoryData.get(playerIn);
 			BmData beastmaster = playerIn.getCapability(BmCapability.CAPABILITY, null);
 

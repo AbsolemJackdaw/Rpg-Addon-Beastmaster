@@ -19,6 +19,10 @@ public class BmData {
 	public BmData(){
 	}
 
+	public static BmData get(EntityPlayer player){
+		return player.getCapability(BmCapability.CAPABILITY, null);
+	}
+	
 	public EntityPlayer getPlayer() { 
 		return player; 
 	}

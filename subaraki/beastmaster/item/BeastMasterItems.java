@@ -90,24 +90,15 @@ public class BeastMasterItems {
 	}
 
 	private static void addToOreDict(){
-		Item rawMeats[] = new Item[]{Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.MUTTON, Items.CHICKEN};
 		
-		for(Item meat : rawMeats)
-			OreDictionary.registerOre("meatRaw", meat);
-		
-		OreDictionary.registerOre("vegetable", Items.POTATO);
-		OreDictionary.registerOre("vegetable", Items.BEETROOT);
-		OreDictionary.registerOre("vegetable", Items.CARROT);
-		OreDictionary.registerOre("vegetable", Blocks.BROWN_MUSHROOM);
-		OreDictionary.registerOre("vegetable", Blocks.RED_MUSHROOM);
-		
-		OreDictionary.registerOre("sugar", Items.SUGAR);
-
+		//mod specific request. didnt add this to the sublib
+		OreDictionary.registerOre("cropVegetable", Blocks.BROWN_MUSHROOM);
+		OreDictionary.registerOre("cropVegetable", Blocks.RED_MUSHROOM);
 	}
 
 	private static void registerRecipes(){
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(lure, 3), Items.WHEAT, "sugar", "meatRaw", "vegetable"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(lure, 3), Items.WHEAT, "dustSugar", "foodMeatRaw", "cropVegetable"));
 		
 		GameRegistry.addShapedRecipe(new ItemStack(claws,1), new Object[]{
 				"ccc","fff","fff", 'f', fur, 'c', claw

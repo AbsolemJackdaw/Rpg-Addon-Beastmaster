@@ -43,33 +43,34 @@ public class EventBeastmasterAttraction {
 					return;
 				}
 
-				boolean isHoldingFood = false;
-				EnumHand heldFood = EnumHand.MAIN_HAND;
+				EnumHand heldFoodHand = null;
+				boolean needsLure;
 
-				if(!PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS)){//if regular player
+				if(PlayerClass.get(player).isPlayerClass(BeastMasterItems.BEASTMASTER_CLASS)) //beastmaster
+					needsLure = false;
+				else //any other class
+				{
 
-					if(player.getHeldItemMainhand() != ItemStack.EMPTY && player.getHeldItemMainhand().getItem().equals(BeastMasterItems.lure) || 
-							player.getHeldItemOffhand() != ItemStack.EMPTY && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure)){		
-						isHoldingFood = true;
-						heldFood =  player.getHeldItemOffhand()!= null && player.getHeldItemOffhand().getItem().equals(BeastMasterItems.lure) ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
-
-					}else{
-						return;//if the player isn't holding lure, return
+					if(player.getHeldItem(EnumHand.MAIN_HAND).getItem() == BeastMasterItems.lure)
+					{
+						heldFoodHand = EnumHand.MAIN_HAND;
 					}
+					else if(player.getHeldItem(EnumHand.OFF_HAND).getItem() == BeastMasterItems.lure)
+					{
+						heldFoodHand = EnumHand.OFF_HAND;
+					}
+					else
+						return;
+					needsLure = true;
 				}
 
-				BmData beastmaster = player.getCapability(BmCapability.CAPABILITY, null);
-
-				//TODO re-implement when mode angles are changeable
-				//				if(beastmaster.isPetting() && !player.worldObj.isRemote){
-				//					beastmaster.setPetting(false);
-				//					NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(false), (EntityPlayerMP) player);
-				//					//set false before checking anything. if it is set to true after, this will have no consequence
-				//				}
+				BmData beastmaster = BmData.get(player);
 
 				RayTraceResult mouseOver = Targetting.rayTraceServerSide(player, 1);
-				if(mouseOver != null){
-					if(mouseOver.entityHit != null){
+				if(mouseOver != null)
+				{
+					if(mouseOver.entityHit != null)
+					{
 						Entity e = mouseOver.entityHit;
 
 						if(e instanceof EntityCreature){
@@ -91,50 +92,34 @@ public class EventBeastmasterAttraction {
 
 								if(distance - (double)ec.width/2d <= 2d){
 
-									if(ec instanceof EntityAnimal){
-										//TODO re-implement when mode angles are changeable
-										//										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
-										//											beastmaster.setPetting(true);
-										//											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
-										//											//set false before checking anything. if it is set to true after, this will have no consequence
-										//										}
+									if(ec instanceof EntityAnimal)
+									{
+										//TODO re-implement when model angles are changeable
+										//if(!beastmaster.isPetting() && !player.worldObj.isRemote){
+										//beastmaster.setPetting(true);
+										//NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
+										////set false before checking anything. if it is set to true after, this will have no consequence
+										//}
 
-										if(isHoldingFood)
-											if(player.world.rand.nextInt(14)== 0 && !player.world.isRemote) //check world. random doesnt sync ?
-												player.getHeldItem(heldFood).shrink(1);
+										int consumechance = player.world.rand.nextInt(14);
 
-										
-										int chance = ec.world.rand.nextInt(27 - (beastmaster.getAnimalAffinity()/10)); //results in 27 - max255/10 = 2
+										if(consumechance == 0 && needsLure && !player.world.isRemote) //check for server, random doesn't sync
+											player.getHeldItem(heldFoodHand).shrink(1);
 
-										if(!ec.isChild()){
-											if(chance == 0 && !ec.world.isRemote){
-												EntityItem ei = new EntityItem(ec.world, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.world.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
-												//this should trigger panic ai
-												ec.setRevengeTarget(player);
-												//its better to attack them to prevent infinite harvest
-												ec.attackEntityFrom(DamageSource.causePlayerDamage(player), 2);
-												ec.world.spawnEntity(ei);
-												player.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
-												
-												if(PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
-													beastmaster.addAnimalAffinity(3);
-												else
-													beastmaster.addAnimalAffinity(1);
-											}
-										}
+										pluckAnimal(ec, player, beastmaster);
 									}
-									else if(PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+									else if(PlayerClass.get(player).isPlayerClass(BeastMasterItems.BEASTMASTER_CLASS))
 										transformChildToCrystal((EntityAnimal)ec, player);
 
 								}else if(ec instanceof EntitySpider){
-									//TODO re-implement when mode angles are changeable
-									//										if(!beastmaster.isPetting() && !player.worldObj.isRemote){
-									//											beastmaster.setPetting(true);
-									//											NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
-									//											//set false before checking anything. if it is set to true after, this will have no consequence
-									//										}
+									//TODO re-implement when model angles are changeable
+									//if(!beastmaster.isPetting() && !player.worldObj.isRemote){
+									//beastmaster.setPetting(true);
+									//NetworkHandler.NETWORK.sendTo(new PacketSyncPetting(true), (EntityPlayerMP) player);
+									////set false before checking anything. if it is set to true after, this will have no consequence
+									//}
 
-									if(PlayerClass.armorClass(player).armorClass(player).isInstanceOf(BeastMasterItems.BEASTMASTER_CLASS))
+									if(PlayerClass.get(player).isPlayerClass(BeastMasterItems.BEASTMASTER_CLASS))
 										transformAdultToCrystal(ec, player);
 								}
 							}
@@ -194,6 +179,28 @@ public class EventBeastmasterAttraction {
 					ea.setRevengeTarget(player);	
 					ea.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, 1, 1);
 				}
+			}
+		}
+	}
+
+	private void pluckAnimal(EntityCreature ec, EntityPlayer player, BmData beastmaster){
+		if(!ec.isChild()){
+
+			int chance = ec.world.rand.nextInt(27 - (beastmaster.getAnimalAffinity()/10)); //results in min:27 - max:(255/10 = 2)
+
+			if(chance == 0 && !ec.world.isRemote){
+				EntityItem ei = new EntityItem(ec.world, ec.posX, ec.posY, ec.posZ, new ItemStack(ec.world.rand.nextInt(3)==0 ? BeastMasterItems.claw : BeastMasterItems.fur));
+				//this should trigger panic ai
+				ec.setRevengeTarget(player);
+				//its better to attack them to prevent infinite harvest
+				ec.attackEntityFrom(DamageSource.causePlayerDamage(player), 2);
+				ec.world.spawnEntity(ei);
+				player.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_CHICKEN_EGG, SoundCategory.NEUTRAL, 1, 1);
+
+				if(PlayerClass.get(player).isPlayerClass(BeastMasterItems.BEASTMASTER_CLASS))
+					beastmaster.addAnimalAffinity(3);
+				else
+					beastmaster.addAnimalAffinity(1);
 			}
 		}
 	}
