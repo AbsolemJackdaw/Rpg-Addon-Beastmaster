@@ -1,0 +1,16 @@
+[
+{
+  "modid": "beastmaster",
+  "name": "BeastMaster Class Armor",
+  "description": "Crawl in the skin of the Beastmaster, tame animals, fight along side your pet and ride them into battle !",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/class-armor-beast-master",
+  "updateUrl": "https://minecraft.curseforge.com/projects/class-armor-beast-master/files",
+  "authorList": ["Subaraki"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

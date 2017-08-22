@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "subaraki",
+    "ingredients": [
+         {"item": "minecraft:wheat"},
+		 {"ore": "dustSugar", "type": "forge:ore_dict"},
+		 {"ore": "foodMeatRaw", "type": "forge:ore_dict"},
+		 {"ore": "cropVegetable", "type": "forge:ore_dict"}
+    ],
+    "result": {
+        "item": "beastmaster:lure",
+		"data": 0
+	}
+}

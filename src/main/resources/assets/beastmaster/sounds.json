@@ -1,0 +1,11 @@
+{
+    "whistle_sound": {
+        "category": "player",
+        "sounds": [
+            {
+                "name": "beastmaster:whistle_sound",
+                "stream": false
+            }
+        ]
+    }
+}

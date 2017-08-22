@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "subaraki",
+	"pattern": [
+        "ccc",
+        "fff",
+        "fff"
+    ],
+    "key": {
+        "c": { "item": "beastmaster:animalclaw"},
+		"f": { "item": "beastmaster:fur"}
+    },
+    "result": {
+        "item": "beastmaster:claws"
+	}
+}
