@@ -48,26 +48,26 @@ public class BeastMasterItems {
 		bm_legs = (ItemBeastmasterArmor) new ItemBeastmasterArmor(EntityEquipmentSlot.LEGS).setCreativeTab(tab);
 		bm_feet = (ItemBeastmasterArmor) new ItemBeastmasterArmor(EntityEquipmentSlot.FEET).setCreativeTab(tab);
 
-		claws = (ItemClaws) new ItemClaws().setUnlocalizedName(modid+".claws").setRegistryName(modid+".claws").setCreativeTab(tab);
+		claws = (ItemClaws) new ItemClaws().setUnlocalizedName("claws").setRegistryName(modid,"claws").setCreativeTab(tab);
 
-		beastmasterplate = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".beastmasterplate").setRegistryName("beastmasterplate");
+		beastmasterplate = new Item().setCreativeTab(tab).setUnlocalizedName("beastmasterplate").setRegistryName(modid,"beastmasterplate");
 		beastmastershield = (ItemCustomShield) new ItemCustomShield(){
 			@Override
 			public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 				return super.getIsRepairable(toRepair, repair);
 			}
-		}.setCreativeTab(tab).setMaxDamage(250).setUnlocalizedName(modid+".beastmastershield").setRegistryName("beastmastershield");
+		}.setCreativeTab(tab).setMaxDamage(250).setUnlocalizedName("beastmastershield").setRegistryName(modid,"beastmastershield");
 
-		claw = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".animalclaw").setRegistryName(modid+".animalclaw");
-		fur = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".roughfur").setRegistryName(modid+".roughfur");
+		claw = new Item().setCreativeTab(tab).setUnlocalizedName("animalclaw").setRegistryName(modid,"animalclaw");
+		fur = new Item().setCreativeTab(tab).setUnlocalizedName("roughfur").setRegistryName(modid,"roughfur");
 
-		crystal = (ItemCrystal) new ItemCrystal(JewelTypes.CRYSTAL).setUnlocalizedName(modid+".crystal").setRegistryName(modid+".crystal").setCreativeTab(tab);
+		crystal = (ItemCrystal) new ItemCrystal(JewelTypes.CRYSTAL).setUnlocalizedName("crystal").setRegistryName(modid,"crystal").setCreativeTab(tab);
 
-		whistle = (ItemWhistle) new ItemWhistle().setCreativeTab(tab).setUnlocalizedName(modid+".whistle").setRegistryName(modid+".whistle");
+		whistle = (ItemWhistle) new ItemWhistle().setCreativeTab(tab).setUnlocalizedName("whistle").setRegistryName(modid,"whistle");
 
-		lure = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".lure").setRegistryName(modid+".lure");
+		lure = new Item().setCreativeTab(tab).setUnlocalizedName("lure").setRegistryName(modid,"lure");
 
-		craftLeather = new Item().setCreativeTab(tab).setUnlocalizedName(modid+".craftLeather").setRegistryName(modid+".craftLeather");
+		craftLeather = new Item().setCreativeTab(tab).setUnlocalizedName("craftLeather").setRegistryName(modid,"craftLeather");
 		register();
 		
 		addToOreDict();

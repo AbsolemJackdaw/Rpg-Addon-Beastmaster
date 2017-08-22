@@ -6,7 +6,7 @@
         "x "
 	],
     "key": {
-        "x": { "item": "beastmaster:reeds"}
+        "x": { "item": "minecraft:reeds"}
     },
     "result": {
         "item": "beastmaster:whistle"

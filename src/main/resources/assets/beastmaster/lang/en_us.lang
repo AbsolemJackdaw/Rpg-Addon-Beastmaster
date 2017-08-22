@@ -3,21 +3,21 @@ item.beastmaster_chest.name=Beastmaster Chestplate
 item.beastmaster_legs.name=Beastmaster Leggings
 item.beastmaster_feet.name=Beastmaster Boots
 
-item.beastmaster.claws.name=Feral Claw
-item.beastmaster.roughfur.name=Rough Fur
-item.beastmaster.animalclaw.name=Animal Claw
-item.beastmaster.whistle.name=Pet Whistle
+item.claws.name=Feral Claw
+item.roughfur.name=Rough Fur
+item.animalclaw.name=Animal Claw
+item.whistle.name=Pet Whistle
 
-item.beastmaster.craftLeather.name=Feral Leather
-item.beastmaster.lure.name=Animal Lure
+item.craftLeather.name=Feral Leather
+item.lure.name=Animal Lure
 
 itemGroup.addon_beastmaster=BeastMaster Class
 
-item.beastmaster.crystal_0.name=Empty Crystal
-item.beastmaster.crystal_1.name=Boar Pet
-item.beastmaster.crystal_2.name=Spider Pet
-item.beastmaster.crystal_3.name=Bull Pet
-item.beastmaster.crystal_4.name=Rooster Pet
+item.crystal_0.name=Empty Crystal
+item.crystal_1.name=Boar Pet
+item.crystal_2.name=Spider Pet
+item.crystal_3.name=Bull Pet
+item.crystal_4.name=Rooster Pet
 
 entity.beastmaster.rooster_pet.name=Rooster Pet
 entity.beastmaster.bull_pet.name=Bull Pet

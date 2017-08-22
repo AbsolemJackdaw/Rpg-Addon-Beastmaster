@@ -8,7 +8,7 @@
     ],
     "key": {
         "c": { "item": "beastmaster:animalclaw"},
-		"f": { "item": "beastmaster:fur"}
+		"f": { "item": "beastmaster:roughfur"}
     },
     "result": {
         "item": "beastmaster:claws"

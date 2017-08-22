@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "group": "subaraki",
     "ingredients": [
-         {"item": "beastmaster:fur"},
+         {"item": "beastmaster:roughfur"},
 		 {"item": "minecraft:leather"},
 		 {"item": "minecraft:rabbit_hide"}
     ],
