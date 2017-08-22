@@ -28,7 +28,7 @@ public class AddonBeastMaster {
 	public static final String MODID = "beastmaster";
 	public static final String NAME = "Beastmaster Class Armor";
 	public static final String VERSION = "$version";
-	public static final String DEPENDENCY = "required-after:subcommonlib@[1.2,);required-after:rpginventory";
+	public static final String DEPENDENCY = "required-after:subcommonlib@[1.2,);required-after:rpginventory@[1.2,)";
 
 	@SidedProxy(clientSide = "subaraki.beastmaster.handler.proxy.ClientProxy", serverSide = "subaraki.beastmaster.handler.proxy.ServerProxy")
 	public static ServerProxy proxy;
