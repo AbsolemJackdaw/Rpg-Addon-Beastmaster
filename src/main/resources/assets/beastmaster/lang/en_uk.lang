@@ -19,7 +19,7 @@ item.crystal_2.name=Spider Pet
 item.crystal_3.name=Bull Pet
 item.crystal_4.name=Rooster Pet
 
-entity.beastmaster.rooster_pet.name=Rooster Pet
-entity.beastmaster.bull_pet.name=Bull Pet
-entity.beastmaster.spider_pet.name=Spider Pet
-entity.beastmaster.boar_pet.name=Boar Pet
+entity.rooster_pet.name=Rooster Pet
+entity.bull_pet.name=Bull Pet
+entity.spider_pet.name=Spider Pet
+entity.boar_pet.name=Boar Pet
