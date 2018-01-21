@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import subaraki.beastmaster.capability.BmCapability;
 import subaraki.beastmaster.config.ConfigurationHandler;
 import subaraki.beastmaster.entity.BeastMasterPet;
+import subaraki.beastmaster.entity.EntityHandler;
 import subaraki.beastmaster.event.EventAddAI;
 import subaraki.beastmaster.event.EventBeastmasterAttraction;
 import subaraki.beastmaster.event.EventOnRpgGuiOpened;
@@ -42,7 +43,8 @@ public class AddonBeastMaster {
 
 		BeastMasterItems.load();
 
-		proxy.registerEntities();
+		new EntityHandler();
+
 		proxy.registerRenders();
 
 		new EventBeastmasterAttraction();

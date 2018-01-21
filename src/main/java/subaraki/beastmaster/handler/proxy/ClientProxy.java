@@ -76,7 +76,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityPetBoar.class, RenderBeastMasterPet<EntityPetBoar>::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPetBull.class, RenderBeastMasterPet<EntityPetBull>::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPetRooster.class, RenderBeastMasterPet<EntityPetRooster>::new);
-		
+//		
 	}
 
 	@Override
