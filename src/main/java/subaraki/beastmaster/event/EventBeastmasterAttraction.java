@@ -101,15 +101,17 @@ public class EventBeastmasterAttraction {
 										////set false before checking anything. if it is set to true after, this will have no consequence
 										//}
 
-										int consumechance = player.world.rand.nextInt(14);
+										if(!ec.isChild()){
+											int consumechance = player.world.rand.nextInt(14);
 
-										if(consumechance == 0 && needsLure && !player.world.isRemote) //check for server, random doesn't sync
-											player.getHeldItem(heldFoodHand).shrink(1);
+											if(consumechance == 0 && needsLure && !player.world.isRemote) //check for server, random doesn't sync
+												player.getHeldItem(heldFoodHand).shrink(1);
 
-										pluckAnimal(ec, player, beastmaster);
+											pluckAnimal(ec, player, beastmaster);
+										}
+										else if(PlayerClass.get(player).isPlayerClass(BeastMasterItems.BEASTMASTER_CLASS))
+											transformChildToCrystal((EntityAnimal)ec, player);
 									}
-									else if(PlayerClass.get(player).isPlayerClass(BeastMasterItems.BEASTMASTER_CLASS))
-										transformChildToCrystal((EntityAnimal)ec, player);
 
 								}else if(ec instanceof EntitySpider){
 									//TODO re-implement when model angles are changeable
